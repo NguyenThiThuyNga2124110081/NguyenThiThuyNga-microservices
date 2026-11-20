@@ -13,34 +13,29 @@ public class PatientServiceApplication {
 	}
 
 	private static void loadDotenv() {
+		applyDotenv(tryLoad(() -> Dotenv.configure().ignoreIfMissing().load()));
+		applyDotenv(tryLoad(() -> Dotenv.configure().directory("backend/patient-service").ignoreIfMissing().load()));
+		applyDotenv(tryLoad(() -> Dotenv.configure().directory("../").ignoreIfMissing().load()));
+	}
+
+	private static Dotenv tryLoad(java.util.function.Supplier<Dotenv> supplier) {
 		try {
-			Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
+			return supplier.get();
+		} catch (Exception ignored) {
+			return null;
+		}
+	}
+
+	private static void applyDotenv(Dotenv dotenv) {
+		if (dotenv != null) {
 			dotenv.entries().forEach(e -> {
-				if (System.getProperty(e.getKey()) == null) {
-					System.setProperty(e.getKey(), e.getValue());
+				String val = e.getValue();
+				if (val != null && !val.trim().isEmpty()) {
+					System.setProperty(e.getKey(), val);
+				} else if (System.getProperty(e.getKey()) == null) {
+					System.setProperty(e.getKey(), "");
 				}
 			});
-		} catch (Exception ignored) {
-		}
-
-		try {
-			Dotenv dotenvSub = Dotenv.configure().directory("backend/patient-service").ignoreIfMissing().load();
-			dotenvSub.entries().forEach(e -> {
-				if (System.getProperty(e.getKey()) == null) {
-					System.setProperty(e.getKey(), e.getValue());
-				}
-			});
-		} catch (Exception ignored) {
-		}
-
-		try {
-			Dotenv dotenvParent = Dotenv.configure().directory("../").ignoreIfMissing().load();
-			dotenvParent.entries().forEach(e -> {
-				if (System.getProperty(e.getKey()) == null) {
-					System.setProperty(e.getKey(), e.getValue());
-				}
-			});
-		} catch (Exception ignored) {
 		}
 	}
 
