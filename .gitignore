@@ -1,0 +1,16 @@
+# Java / Maven
+**/target/
+
+# IDE
+**/.idea/
+**/.vscode/
+
+# Environment
+**/.env
+
+# Logs
+*.log
+
+# System
+.DS_Store
+Thumbs.db
