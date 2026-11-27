@@ -16,10 +16,10 @@ public class AppointmentDetail {
     @JoinColumn(name = "appointment_id", nullable = false)
     private Appointment appointment;
 
-    @Column(name = "symptoms", length = 1000)
+    @Column(name = "symptoms", length = 1000, columnDefinition = "NVARCHAR(1000)")
     private String symptoms;
 
-    @Column(name = "consultation_type", length = 50)
+    @Column(name = "consultation_type", length = 50, columnDefinition = "NVARCHAR(50)")
     private String consultationType;
 
     @Column(name = "estimated_duration_minutes")

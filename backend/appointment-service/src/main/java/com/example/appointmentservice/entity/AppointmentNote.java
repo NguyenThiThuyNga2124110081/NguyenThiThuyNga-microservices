@@ -19,10 +19,10 @@ public class AppointmentNote {
     private Appointment appointment;
 
     @NotBlank(message = "Note content is required")
-    @Column(name = "note", length = 1000, nullable = false)
+    @Column(name = "note", length = 1000, nullable = false, columnDefinition = "NVARCHAR(1000)")
     private String note;
 
-    @Column(name = "created_by", length = 100)
+    @Column(name = "created_by", length = 100, columnDefinition = "NVARCHAR(100)")
     private String createdBy;
 
     @Column(name = "created_at", nullable = false)

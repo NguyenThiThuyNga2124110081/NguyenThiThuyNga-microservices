@@ -29,10 +29,10 @@ public class AppointmentStatusHistory {
     @Column(name = "changed_at", nullable = false)
     private LocalDateTime changedAt;
 
-    @Column(name = "changed_by", length = 100)
+    @Column(name = "changed_by", length = 100, columnDefinition = "NVARCHAR(100)")
     private String changedBy;
 
-    @Column(name = "change_reason", length = 255)
+    @Column(name = "change_reason", length = 255, columnDefinition = "NVARCHAR(255)")
     private String changeReason;
 
     public AppointmentStatusHistory() {

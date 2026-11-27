@@ -17,11 +17,17 @@ public class Appointment {
     @Column(name = "patient_id", nullable = false)
     private Long patientId;
 
+    @Column(name = "doctor_id")
+    private Long doctorId;
+
+    @Column(name = "doctor_schedule_id")
+    private Long doctorScheduleId;
+
     @NotBlank(message = "Doctor name is required")
-    @Column(name = "doctor_name", length = 100, nullable = false)
+    @Column(name = "doctor_name", length = 100, nullable = false, columnDefinition = "NVARCHAR(100)")
     private String doctorName;
 
-    @Column(name = "department", length = 100)
+    @Column(name = "department", length = 100, columnDefinition = "NVARCHAR(100)")
     private String department;
 
     @NotNull(message = "Appointment date and time is required")
@@ -32,7 +38,7 @@ public class Appointment {
     @Column(name = "status", length = 50, nullable = false)
     private String status;
 
-    @Column(name = "reason", length = 255)
+    @Column(name = "reason", length = 255, columnDefinition = "NVARCHAR(255)")
     private String reason;
 
     @Column(name = "created_at")
@@ -44,9 +50,11 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(Long id, Long patientId, String doctorName, String department, LocalDateTime appointmentDateTime, String status, String reason) {
+    public Appointment(Long id, Long patientId, Long doctorId, Long doctorScheduleId, String doctorName, String department, LocalDateTime appointmentDateTime, String status, String reason) {
         this.id = id;
         this.patientId = patientId;
+        this.doctorId = doctorId;
+        this.doctorScheduleId = doctorScheduleId;
         this.doctorName = doctorName;
         this.department = department;
         this.appointmentDateTime = appointmentDateTime;
@@ -82,6 +90,22 @@ public class Appointment {
 
     public void setPatientId(Long patientId) {
         this.patientId = patientId;
+    }
+
+    public Long getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(Long doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public Long getDoctorScheduleId() {
+        return doctorScheduleId;
+    }
+
+    public void setDoctorScheduleId(Long doctorScheduleId) {
+        this.doctorScheduleId = doctorScheduleId;
     }
 
     public String getDoctorName() {
